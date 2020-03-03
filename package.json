@@ -1,0 +1,19 @@
+{
+  "name": "fondeSlack",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/nasat75/fondeSlack",
+  "author": "Asato Nago <nago@tam-bourine.co.jp>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "./node_modules/.bin/nodemon app.js"
+   },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "@slack/bolt": "^1.4.1",
+    "dotenv": "^8.2.0"
+  }
+}
