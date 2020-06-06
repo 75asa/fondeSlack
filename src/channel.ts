@@ -1,6 +1,5 @@
 import { App } from "@slack/bolt";
 import { firestore } from "./firestore";
-import { WebAPICallResult } from "@slack/web-api";
 import Profile from "./profile";
 
 interface channelResult {
@@ -53,8 +52,6 @@ class Channel {
         })
         .then(result => {
           if (result.ok) {
-            // const userResult = result.profile as userResult;
-            // const profile = new Profile(userResult);
             const profile = new Profile(result);
             return resolve(profile.getUserInfo());
           } else {

@@ -1,6 +1,52 @@
 import { app } from "./bolt";
 import { firestore } from "./firestore";
-import mock from "../../mock.json";
+// TODO: mock
+import mock from "../mock.json";
+import Channel from "./channel";
+import { resolve } from "dns";
+import { rejects } from "assert";
+
+interface userDocument {
+  id: string;
+  title: string;
+  displayName: string[];
+  realName: string[];
+  field: string[];
+  arrayData: string[];
+}
+
+export const getFirestore = async (
+  payloadText: string
+): Promise<userDocument[]> => {
+  let hitUser = [];
+
+  // firestoreのデータを取得
+  return new Promise((resolve, rejects) => {
+    firestore
+      .collection(`users`)
+      .get()
+      .then(user => {
+        let isMentioned = false;
+        user.forEach(content => {
+          const data = content.data();
+
+          isMentioned = data.arrayData.some(keyword => {
+            return payloadText.includes(keyword);
+          });
+          if (isMentioned) {
+            hitUser.push({ id: content.id, data: data });
+            isMentioned = false;
+            console.log({ data });
+          }
+        });
+        resolve(hitUser);
+      })
+      .catch(err => {
+        console.log("Error getting documents", err);
+        rejects();
+      });
+  });
+};
 
 export const set = () => {
   app.command(
@@ -41,30 +87,9 @@ export const get = () => {
       console.log({ summary });
       const toMember = summary.value.split("\n")[0];
       console.log({ toMember });
-      let hitUser = [];
 
       // firestoreのデータを取得
-      await firestore
-        .collection(`users`)
-        .get()
-        .then(user => {
-          let isMentioned = false;
-          user.forEach(content => {
-            const data = content.data();
-
-            isMentioned = data.arrayData.some(keyword => {
-              return toMember.includes(keyword);
-            });
-            if (isMentioned) {
-              hitUser.push({ id: content.id, data: data });
-              isMentioned = false;
-              console.log({ data });
-            }
-          });
-        })
-        .catch(err => {
-          console.log("Error getting documents", err);
-        });
+      const hitUser = await getFirestore(toMember);
 
       console.log({ hitUser });
 
@@ -76,15 +101,28 @@ export const get = () => {
       message += " 電話だよ";
 
       // Slack通知
-      const msg = {
+      const option = {
         token: context.botToken,
         text: message,
         channel: payload.channel_id,
       };
 
-      app.client.chat.postMessage(msg).catch(err => {
+      app.client.chat.postMessage(option).catch(err => {
         throw new Error(err);
       });
+    }
+  );
+};
+
+export const upsertByCommands = () => {
+  app.command(
+    `/get`,
+    async ({ payload, ack, context }): Promise<void> => {
+      ack();
+      // チャンネルメンバーを取得
+      const channel = new Channel(app);
+      channel.putChannelMemberFirestore();
+      // console.log({ channel });
     }
   );
 };

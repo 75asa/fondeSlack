@@ -21,11 +21,7 @@ interface userInfo {
 
 class Profile {
   private userResult: userResult;
-  private apiResult: WebAPICallResult;
 
-  // public constructor(userResult: userResult) {
-  //   this.userResult = userResult;
-  // }
   public constructor(apiResult: WebAPICallResult) {
     this.userResult = apiResult.profile as userResult
   }
