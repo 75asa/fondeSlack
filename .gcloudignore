@@ -1,0 +1,13 @@
+node_modules/
+.env
+/dist/
+
+.gcloudignore
+.git
+.gitignore
+__tests__/
+.circleci/
+.github/
+nodemon.json
+Procfile
+serviceAccountKey.json

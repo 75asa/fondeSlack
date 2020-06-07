@@ -6,11 +6,16 @@
   "author": "Asato Nago <nago@tam-bourine.co.jp>",
   "license": "MIT",
   "scripts": {
-    "start": "npm run build && npm run serve",
-    "build": "npx tsc && node dist/app.js",
+    "start": "node dist/src/index.js",
+    "build": "npx tsc && node dist/src/index.js",
     "dev": "nodemon --watch './src/*.ts' --exec 'ts-node' src/index.ts",
     "serve": "node --require dotenv/config dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "gcp-build": "npx tsc",
+    "prestart": "yarn gcp-build",
+    "deploy": "gcloud app deploy app.yml",
+    "logs": "gcloud app logs",
+    "logs:tail": "gcloud app logs tail",
     "lint": "eslint './src/**/*.ts'",
     "lint:fix": "eslint --fix './src/**/*.ts'"
   },
