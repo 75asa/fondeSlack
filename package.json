@@ -2,9 +2,12 @@
   "name": "fondeSlack",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/nasat75/fondeSlack",
+  "repository": "https://github.com/75asa/fondeSlack",
   "author": "Asato Nago <nago@tam-bourine.co.jp>",
   "license": "MIT",
+  "engines": {
+    "node": "12.x"
+  },
   "scripts": {
     "start": "node dist/src/index.js",
     "build": "npx tsc && node dist/src/index.js",
