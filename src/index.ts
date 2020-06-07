@@ -22,9 +22,21 @@ const noThreadMessages = async ({ payload, next }) => {
 app.message(/^(.*)/, async ({ client, logger, context, message: payload }) => {
   console.log({ payload });
 
-  const summary = mock.attachments[0].fields.find(
+  const withAttachment = payload.attachments && payload.attachments.length > 0;
+
+  if (!withAttachment) {
+    console.log(`webhook以外`);
+    return;
+  }
+  // const summary = mock.attachments[0].fields.find(
+  const summary = payload.attachments[0].fields.find(
     field => field.title === "内容"
   );
+
+  if (!summary) {
+    console.log(`fondeskのwebhookではない`);
+    return;
+  }
 
   console.log({ summary });
   const toMember = summary.value.split("\n")[0];
@@ -63,8 +75,8 @@ app.message(/^(.*)/, async ({ client, logger, context, message: payload }) => {
   console.log("⚡️ Bolt app is running!");
 })();
 
-member.set();
-member.get();
+// member.set();
+// member.get();
 member.upsertByCommands();
 upsertChannelMember();
 notify();

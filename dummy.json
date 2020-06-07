@@ -1,0 +1,32 @@
+{
+    "channel": "#telephon",
+    "username": "fondesk post tester",
+    "attachments": [
+        {
+            "color": "good",
+            "fields": [
+                {
+                    "title": "発信者",
+                    "value": "株式会社テスト　ヤマダ",
+                    "short": false
+                },
+                {
+                    "title": "折り返し先の電話番号",
+                    "value": "00-0000-0000",
+                    "short": true
+                },
+                {
+                    "title": "折り返しの連絡",
+                    "value": "必要",
+                    "short": true
+                },
+                {
+                    "title": "内容",
+                    "value": "名護様宛。メールご確認くださいとのことでした。",
+                    "short": false
+                }
+            ]
+        }
+    ],
+    "icon_emoji": ":iphone:"
+}

@@ -1,0 +1,5 @@
+cron:
+  - description: upsert slack profile into firestore
+    url: /register
+    schedule: every 24 hours
+    timezone: Asia/Tokyo
