@@ -1,5 +1,6 @@
 import { WebAPICallResult } from "@slack/web-api";
 
+// slack api user profile result
 interface userResult {
   profile: object;
   title: string;
@@ -11,6 +12,7 @@ interface userResult {
   last_name: string;
 }
 
+// Firestore?document???
 interface userInfo {
   title: string;
   displayName: string[];
@@ -23,7 +25,7 @@ class Profile {
   private userResult: userResult;
 
   public constructor(apiResult: WebAPICallResult) {
-    this.userResult = apiResult.profile as userResult
+    this.userResult = apiResult.profile as userResult;
   }
   private splitWords = (data: string): string[] => {
     if (!data) return [];
@@ -46,18 +48,15 @@ class Profile {
   };
 
   public getUserInfo(): userInfo {
-    const customFieldsMap = this.getCustomFields(this.userResult.fields);
+    const customFields = this.getCustomFields(this.userResult.fields);
     const displayName = this.splitWords(this.userResult.display_name);
     const realName = this.splitWords(this.userResult.real_name);
     const userInfo = {
       title: this.userResult.title,
-      field: customFieldsMap,
+      field: customFields,
       displayName: displayName,
       realName: realName,
-      arrayData: customFieldsMap
-        .concat(displayName)
-        .concat(realName)
-        .concat([this.userResult.title])
+      arrayData: [customFields, displayName, realName, [this.userResult.title]]
         .flat()
         .filter(Boolean),
     };

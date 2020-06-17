@@ -1,4 +1,4 @@
-import * as admin from 'firebase-admin'
+import * as admin from "firebase-admin";
 import * as serviceAccount from "../firebase.json";
 
 const params = {
@@ -19,4 +19,4 @@ admin.initializeApp({
   databaseURL: "https://fondeslack.firebaseio.com/",
 });
 
-export const firestore = admin.firestore()
+export const firestore = admin.firestore();

@@ -48,9 +48,11 @@ app.message(/^(.*)/, async ({ client, logger, context, message: payload }) => {
   console.log({ hitUser });
 
   let message = "<!here>";
+  let willBroadcast = true;
 
   if (hitUser.length > 0) {
     message = hitUser.map(user => `<@${user.id}>`).join(" ");
+    willBroadcast = false;
   }
   message += " 電話だよ〜:call_me_hand::skin-tone-5:";
 
@@ -60,13 +62,13 @@ app.message(/^(.*)/, async ({ client, logger, context, message: payload }) => {
     text: message,
     channel: payload.channel,
     thread_ts: payload.event_ts,
+    reply_broadcast: willBroadcast,
   };
 
   app.client.chat.postMessage(option).catch(err => {
     throw new Error(err);
   });
 });
-
 (async () => {
   // Start your app
   await app.start(process.env.PORT || 3000);

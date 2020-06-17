@@ -18,7 +18,7 @@ interface userDocument {
 export const getFirestore = async (
   payloadText: string
 ): Promise<userDocument[]> => {
-  let hitUser = [];
+  const hitUser = [];
 
   // firestoreのデータを取得
   return new Promise((resolve, rejects) => {

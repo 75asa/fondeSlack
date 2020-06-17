@@ -15,5 +15,7 @@ env:
 rules:
   prettier/prettier:
     - error
-    - semi: false
-    - singleQuote: true
+    - 
+      semi: true
+      singleQuote: false
+      arrowParens: avoid

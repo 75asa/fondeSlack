@@ -17,6 +17,7 @@
     "gcp-build": "npx tsc",
     "prestart": "yarn gcp-build",
     "deploy": "gcloud app deploy app.yml",
+    "deploy:cron": "gcloud app --quiet deploy app.yml cron.yml",
     "logs": "gcloud app logs",
     "logs:tail": "gcloud app logs tail",
     "lint": "eslint './src/**/*.ts'",
