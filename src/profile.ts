@@ -51,12 +51,13 @@ class Profile {
     const customFields = this.getCustomFields(this.userResult.fields);
     const displayName = this.splitWords(this.userResult.display_name);
     const realName = this.splitWords(this.userResult.real_name);
+    const title = this.splitWords(this.userResult.title);
     const userInfo = {
       title: this.userResult.title,
       field: customFields,
       displayName: displayName,
       realName: realName,
-      arrayData: [customFields, displayName, realName, [this.userResult.title]]
+      arrayData: [customFields, displayName, realName, title]
         .flat()
         .filter(Boolean),
     };
