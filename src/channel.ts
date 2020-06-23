@@ -66,8 +66,8 @@ class Channel {
     const members = await this.getChannelInfo();
     await members.map(async userId => {
       const userProfile = await this.getProfile(userId);
+      console.log({ userProfile });
       await usersRef.doc(userId).set(userProfile);
-      console.log({ result: userProfile });
       return userProfile;
     });
   }

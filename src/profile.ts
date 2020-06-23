@@ -39,12 +39,16 @@ class Profile {
   };
 
   private getCustomFields = (data: object): string[] => {
-    return data
-      ? Object.keys(data).flatMap(element => {
-          const field = data[element];
-          return this.splitWords(field.value);
-        })
-      : [];
+    if (!data) return [];
+    return Object.keys(data).flatMap(element => {
+      const field = data[element];
+      // 部署は外す
+      if (element === "XfUWJ5TV6K") {
+        return "";
+      } else {
+        return this.splitWords(field.value);
+      }
+    });
   };
 
   public getUserInfo(): userInfo {
