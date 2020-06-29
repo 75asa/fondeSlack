@@ -1,4 +1,5 @@
 import { app, upsertChannelMember, notify } from "./bolt";
+import { ChatPostMessageArguments } from "@slack/web-api";
 // import notify from "./notify";
 import * as member from "./member";
 import { resolve } from "dns";
@@ -48,22 +49,26 @@ app.message(/^(.*)/, async ({ client, logger, context, message: payload }) => {
   console.log({ hitUser });
 
   let message = "<!here>";
-  let willBroadcast = true;
+  let isHit = false;
 
   if (hitUser.length > 0) {
     message = hitUser.map(user => `<@${user.id}>`).join(" ");
-    willBroadcast = false;
+    isHit = true;
   }
   message += " 電話だよ〜:call_me_hand::skin-tone-5:";
 
   // Slack通知
-  const option = {
+  const option: ChatPostMessageArguments = {
     token: context.botToken,
     text: message,
     channel: payload.channel,
-    thread_ts: payload.event_ts,
-    reply_broadcast: willBroadcast,
   };
+
+  // console.log({ isHit });
+
+  if (isHit) option.thread_ts = payload.event_ts;
+
+  // console.log({ option });
 
   app.client.chat.postMessage(option).catch(err => {
     throw new Error(err);
