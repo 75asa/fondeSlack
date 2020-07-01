@@ -64,11 +64,13 @@ app.message(/^(.*)/, async ({ client, logger, context, message: payload }) => {
     channel: payload.channel,
   };
 
-  // console.log({ isHit });
+  console.log({ isHit });
 
-  if (isHit) option.thread_ts = payload.event_ts;
+  if (isHit) {
+    option.thread_ts = payload.event_ts;
+  }
 
-  // console.log({ option });
+  console.log({ option });
 
   app.client.chat.postMessage(option).catch(err => {
     throw new Error(err);
