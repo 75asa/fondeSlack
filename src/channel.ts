@@ -1,23 +1,8 @@
 import { App } from "@slack/bolt";
+import { channel } from "./types/channelResult";
+import { userInfo } from "./types/userInfo";
 import { firestore } from "./firestore";
 import Profile from "./profile";
-import { channelResult } from "types/channelResult";
-
-// interface channelResult {
-//     channel: object;
-//     members: string[];
-// }
-
-interface userResult {
-    profile: object;
-    title: string;
-    real_name: string;
-    display_name: string;
-    fields: object;
-    status_text: string;
-    first_name: string;
-    last_name: string;
-}
 
 class Channel {
     private app: App;
@@ -35,7 +20,7 @@ class Channel {
                 })
                 .then(result => {
                     if (result.ok) {
-                        const channelResult = result.channel as channelResult;
+                        const channelResult = result.channel as channel;
                         resolve(channelResult.members);
                     } else {
                         rejects();
@@ -44,7 +29,7 @@ class Channel {
         });
     };
 
-    public getProfile = async (slackId: string): Promise<object> => {
+    public getProfile = async (slackId: string): Promise<userInfo> => {
         return new Promise((resolve, rejects) => {
             this.app.client.users.profile
                 .get({

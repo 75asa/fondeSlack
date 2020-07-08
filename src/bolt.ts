@@ -4,11 +4,6 @@ import Channel from "./channel";
 
 dotenv.config();
 
-// eslint-disable-next-line guard-for-in
-// for (const key in dotenv) {
-//     process.env[key] = dotenv[key];
-// }
-
 Object.keys(dotenv).forEach(key => {
     process.env[key] = dotenv[key];
 });

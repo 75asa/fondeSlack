@@ -1,28 +1,6 @@
 export interface channelResult {
     ok?: boolean;
-    channel: channel;
-}
-
-export interface attachments {
-    text?: string;
-    id?: number;
-    fallback?: string;
-}
-
-export interface latest {
-    text?: string;
-    username?: string;
-    bot_id?: string;
-    attachments?: attachments[];
-    type?: string;
-    subtype?: string;
-    ts?: string;
-}
-
-export interface topicOrPurpose {
-    value?: string;
-    creator?: string;
-    last_set?: number;
+    channel?: channel;
 }
 
 export interface channel {
@@ -47,4 +25,26 @@ export interface channel {
     topic?: topicOrPurpose;
     purpose?: topicOrPurpose;
     previous_names?: string[];
+}
+
+export interface latest {
+    text?: string;
+    username?: string;
+    bot_id?: string;
+    attachments?: attachments[];
+    type?: string;
+    subtype?: string;
+    ts?: string;
+}
+
+export interface attachments {
+    text?: string;
+    id?: number;
+    fallback?: string;
+}
+
+export interface topicOrPurpose {
+    value?: string;
+    creator?: string;
+    last_set?: number;
 }
