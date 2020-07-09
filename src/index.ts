@@ -1,6 +1,6 @@
 import { ChatPostMessageArguments } from "@slack/web-api";
 import { app, upsertChannelMember } from "./bolt";
-import * as member from "./member";
+import getFirestore from "./member";
 // TODO: mock
 // import mock from "../mock.json";
 
@@ -26,12 +26,12 @@ app.message(/^(.*)/, async ({ context, message: payload }) => {
 
     console.log({ summary });
 
-    const toMember = summary.value.split("\n")[0];
+    const targetMember = summary.value.split("\n")[0];
 
-    console.log({ toMember });
+    console.log({ toMember: targetMember });
 
     // firestoreのデータを取得
-    const hitUser = await member.getFirestore(toMember);
+    const hitUser = await getFirestore(targetMember);
 
     console.log({ hitUser });
 
