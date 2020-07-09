@@ -1,7 +1,7 @@
 import { App } from "@slack/bolt";
 import { channel } from "./types/channelResult";
 import { userInfo } from "./types/userInfo";
-import { firestore } from "./firestore";
+import firestore from "./firestore";
 import Profile from "./profile";
 
 class Channel {
@@ -41,7 +41,7 @@ class Channel {
                         const profile = new Profile(result);
                         return resolve(profile.getUserInfo());
                     }
-                    rejects();
+                    return rejects();
                 });
         });
     };

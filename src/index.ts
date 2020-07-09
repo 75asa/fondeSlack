@@ -1,26 +1,10 @@
 import { ChatPostMessageArguments } from "@slack/web-api";
-import { resolve } from "dns";
 import { app, upsertChannelMember } from "./bolt";
-// import notify from "./notify";
 import * as member from "./member";
 // TODO: mock
-import mock from "../mock.json";
+// import mock from "../mock.json";
 
-// To response only user w/o bot
-const onlyBotMessages = async ({ logger, message: payload, next }) => {
-    // console.log({ message })
-    logger.info({ payload });
-    if (payload.subtype && payload.subtype == "bot_message") next();
-};
-
-// TODO: production
-const noThreadMessages = async ({ payload, next }) => {
-    if (!payload.thread_ts) next();
-};
-
-// FIXME: middleware type
-// app.use(onlyBotMessages);
-app.message(/^(.*)/, async ({ client, logger, context, message: payload }) => {
+app.message(/^(.*)/, async ({ context, message: payload }) => {
     console.log({ payload });
 
     const withAttachment =
@@ -41,7 +25,9 @@ app.message(/^(.*)/, async ({ client, logger, context, message: payload }) => {
     }
 
     console.log({ summary });
+
     const toMember = summary.value.split("\n")[0];
+
     console.log({ toMember });
 
     // firestoreのデータを取得
@@ -52,7 +38,7 @@ app.message(/^(.*)/, async ({ client, logger, context, message: payload }) => {
     let message = "<!here>";
     let isHit = false;
 
-    if (hitUser.length > 0) {
+    if (hitUser.length) {
         message = hitUser.map(user => `<@${user.id}>`).join(" ");
         isHit = true;
     }
@@ -77,13 +63,12 @@ app.message(/^(.*)/, async ({ client, logger, context, message: payload }) => {
         throw new Error(err);
     });
 });
+
 (async () => {
     // Start your app
     await app.start(process.env.PORT || 3000);
-    member.getFirestore;
 
     console.log("⚡️ Bolt app is running!");
 })();
 
-member.upsertByCommands();
 upsertChannelMember();

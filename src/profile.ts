@@ -1,25 +1,6 @@
 import { WebAPICallResult } from "@slack/web-api";
-
-// slack api user profile result
-interface userResult {
-    profile: object;
-    title: string;
-    real_name: string;
-    display_name: string;
-    fields: object;
-    status_text: string;
-    first_name: string;
-    last_name: string;
-}
-
-// Firestore?document???
-interface userInfo {
-    title: string;
-    displayName: string[];
-    realName: string[];
-    field: string[];
-    arrayData: string[];
-}
+import { userInfo as userInfoType } from "./types/userInfo";
+import { userResult, fields } from "./types/userResult";
 
 class Profile {
     private userResult: userResult;
@@ -39,7 +20,7 @@ class Profile {
         return result;
     };
 
-    private getCustomFields = (data: object): string[] => {
+    private getCustomFields = (data: fields): string[] => {
         if (!data) return [];
         return Object.keys(data).flatMap(element => {
             const field = data[element];
@@ -51,7 +32,7 @@ class Profile {
         });
     };
 
-    public getUserInfo(): userInfo {
+    public getUserInfo(): userInfoType {
         const customFields = this.getCustomFields(this.userResult.fields);
         const displayName = this.splitWords(this.userResult.display_name);
         const realName = this.splitWords(this.userResult.real_name);

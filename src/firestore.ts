@@ -19,4 +19,4 @@ admin.initializeApp({
     databaseURL: "https://fondeslack.firebaseio.com/",
 });
 
-export const firestore = admin.firestore();
+export default admin.firestore();

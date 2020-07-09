@@ -26,7 +26,7 @@ export const upsertChannelMember = (): void => {
         res.sendStatus(200);
         // チャンネルメンバーを取得
         const channel = new Channel(app);
+        // 更新
         channel.putChannelMemberFirestore();
-        // console.log({ channel });
     });
 };

@@ -1,7 +1,5 @@
-import { resolve } from "dns";
-import { rejects } from "assert";
 import { app } from "./bolt";
-import { firestore } from "./firestore";
+import firestore from "./firestore";
 // TODO: mock
 import mock from "../mock.json";
 import Channel from "./channel";
@@ -110,19 +108,6 @@ export const get = () => {
             app.client.chat.postMessage(option).catch(err => {
                 throw new Error(err);
             });
-        }
-    );
-};
-
-export const upsertByCommands = () => {
-    app.command(
-        `/get`,
-        async ({ payload, ack, context }): Promise<void> => {
-            ack();
-            // チャンネルメンバーを取得
-            const channel = new Channel(app);
-            channel.putChannelMemberFirestore();
-            // console.log({ channel });
         }
     );
 };
