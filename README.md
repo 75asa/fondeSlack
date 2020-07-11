@@ -1,3 +1,5 @@
+![.github/workflows/lint.yml](https://github.com/75asa/fondeSlack/workflows/.github/workflows/lint.yml/badge.svg)
+
 # 概要
 
 _fondesk のメッセージ内容から担当者をメンションしてくれる slackApp_
@@ -29,7 +31,7 @@ _fondesk のメッセージ内容から担当者をメンションしてくれ�
   - `gcloud projects create fondeSlack --set-as-default`
 - `.env.example` の内容を `secret.yml`  で記述（ポートはいらない）
 
-## teminal
+## terminal
 
 - run `$yarn`
 - ローカル開発
@@ -47,6 +49,8 @@ fondesk がいるチャンネルに招待する
 
 チャンネルのIDを env の CHANNEL_ID にいれる
 
-会社のルールとしては `/ || ／` で区切って、各フィールドはスペース入れてます
+あとは fondesk から投稿があれば反応
 
+<!-- 会社のルールとしては `/ || ／` で区切って、各フィールドはスペース入れてます
+ -->
 GAE の cron で毎日 slack のプロフィールから DB を更新しています
