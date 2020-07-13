@@ -1,4 +1,4 @@
-![.github/workflows/lint.yml](https://github.com/75asa/fondeSlack/workflows/.github/workflows/lint.yml/badge.svg)
+![CI](https://github.com/75asa/fondeSlack/workflows/CI/badge.svg)
 
 # 概要
 
