@@ -1,4 +1,5 @@
 import * as admin from "firebase-admin";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import * as serviceAccount from "../firebase.json";
 
 const params = {
