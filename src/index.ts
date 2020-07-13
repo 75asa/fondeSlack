@@ -1,8 +1,10 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { ChatPostMessageArguments } from "@slack/web-api";
 import { app, upsertChannelMember } from "./bolt";
 import getFirestore from "./member";
 // TODO: mock
 // import mock from "../mock.json";
+// const logger = L);
 
 app.message(/^(.*)/, async ({ context, message: payload }) => {
     console.log({ payload });
