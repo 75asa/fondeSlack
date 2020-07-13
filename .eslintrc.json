@@ -32,7 +32,8 @@
           "ts": "never",
           "tsx": "never"
         }
-      ]
+      ],
+      "no-console": 0
     },
     "settings": {
       "import/reslover": {

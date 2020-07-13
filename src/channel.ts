@@ -1,6 +1,8 @@
 import { App } from "@slack/bolt";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { channel } from "./types/channelResult";
 import { userInfo } from "./types/userInfo";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import firestore from "./firestore";
 import Profile from "./profile";
 
@@ -51,7 +53,7 @@ class Channel {
         const members = await this.getChannelInfo();
         await members.map(async userId => {
             const userProfile = await this.getProfile(userId);
-            console.log({ userProfile });
+            this.logger.debug({ userProfile });
             await usersRef.doc(userId).set(userProfile);
             return userProfile;
         });

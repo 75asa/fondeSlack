@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { WebAPICallResult } from "@slack/web-api";
 import { userInfo as userInfoType } from "./types/userInfo";
 import { userResult, fields } from "./types/userResult";
