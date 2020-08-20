@@ -1,14 +1,5 @@
 import firestore from "./firestore";
-// TODO: mock
-
-interface userDocument {
-    id: string;
-    title: string;
-    displayName: string[];
-    realName: string[];
-    field: string[];
-    arrayData: string[];
-}
+import { userDocument } from "./types/userDocument";
 
 export default async (payloadText: string): Promise<userDocument[]> => {
     const hitUser = [];
