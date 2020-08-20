@@ -60,9 +60,14 @@ app.message(/^(.*)/, async ({ context, message: payload }) => {
 
     console.log({ option });
 
-    app.client.chat.postMessage(option).catch(err => {
+    const res = await app.client.chat.postMessage(option).catch(err => {
         throw new Error(err);
     });
+    if (res.ok) {
+        console.log(`msg: ok ✅`);
+    } else {
+        console.log(`Failed to post a message (error: ${res.error})`);
+    }
 });
 
 (async () => {
