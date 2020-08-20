@@ -37,6 +37,7 @@ class Channel {
                 .get({
                     token: process.env.SLACK_BOT_TOKEN,
                     user: slackId,
+                    include_labels: true,
                 })
                 .then(result => {
                     if (result.ok) {
@@ -44,6 +45,9 @@ class Channel {
                         return resolve(profile.getUserInfo());
                     }
                     return rejects();
+                })
+                .catch(err => {
+                    return new Error(err);
                 });
         });
     };
@@ -51,12 +55,27 @@ class Channel {
     public async putChannelMemberFirestore(): Promise<void> {
         const usersRef = firestore.collection(`users`);
         const members = await this.getChannelInfo();
-        await members.map(async userId => {
+        const result = await members.every(async userId => {
             const userProfile = await this.getProfile(userId);
             console.log({ userProfile });
-            await usersRef.doc(userId).set(userProfile);
-            return userProfile;
+            const isSuccessWrite = await usersRef
+                .doc(userId)
+                .set(userProfile)
+                .then(() => {
+                    return true;
+                })
+                .catch(err => {
+                    console.log({ err });
+                    return false;
+                });
+            return isSuccessWrite;
         });
+
+        if (result) {
+            console.log(`upsert: ok ✅`);
+        } else {
+            console.log(`Failed to upsert channel members info`);
+        }
     }
 }
 

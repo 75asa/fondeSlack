@@ -10,9 +10,13 @@ class Profile {
         this.userResult = apiResult.profile as userResult;
     }
 
+    // 検索対象に含めたくないslackのプロフィール項目名
+    private IGNORE_CUSTOM_FIELDS_LABEL = ["部署"];
+
     private splitWords = (data: string): string[] => {
         if (!data) return [];
 
+        // チームによってSlackプロフィールの設定ルールがあると思うのでここは区切りたい文字で
         const specialChar = /\/||／/;
         const result = data
             .split(/\s+/)
@@ -25,8 +29,7 @@ class Profile {
         if (!data) return [];
         return Object.keys(data).flatMap(element => {
             const field = data[element];
-            // 部署は外す
-            if (element === "XfUWJ5TV6K") {
+            if (this.IGNORE_CUSTOM_FIELDS_LABEL.includes(field.label)) {
                 return "";
             }
             return this.splitWords(field.value);
