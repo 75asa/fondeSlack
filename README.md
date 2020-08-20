@@ -2,6 +2,9 @@
 
 # 概要
 
+![image](https://user-images.githubusercontent.com/35181442/90799992-fb391d80-e34e-11ea-85ee-f43068fee300.png)
+
+
 _fondesk のメッセージ内容から担当者をメンションしてくれる slackApp_
 
 # 導入
@@ -49,8 +52,15 @@ fondesk がいるチャンネルに招待する
 
 チャンネルのIDを env の CHANNEL_ID にいれる
 
+またチームによってslackプロフィールの設定はまちまちだと思うので
+プロフィールから区切りたい文字を `src/profile.ts` l. 17 `specialChar` で指定する（regex）
+空白はデフォルトで除去されます
+
+もしslackプロフィールのカスタム項目を設定してる場合は、`src/profile.ts` l. 14 の `IGNORE_CUSTOM_FIELDS_LABEL` に検索対象に含めたくないカスタム項目名をいれてください
+
 あとは fondesk から投稿があれば反応
 
 <!-- 会社のルールとしては `/ || ／` で区切って、各フィールドはスペース入れてます
  -->
-GAE の cron で毎日 slack のプロフィールから DB を更新しています
+GAE の cron で毎日 9-18時で slack のプロフィールから DB を更新しています
+
