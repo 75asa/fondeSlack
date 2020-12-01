@@ -16,7 +16,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "gcp-build": "npx tsc",
     "prestart": "yarn gcp-build",
-    "deploy": "gcloud app deploy app.yml",
+    "deploy": "gcloud -q app deploy app.yml --project fondeslack",
     "deploy:cron": "gcloud app --quiet deploy app.yml cron.yml",
     "logs": "gcloud app logs read",
     "logs:tail": "gcloud app logs tail",
