@@ -7,10 +7,13 @@ import getFirestore from "./member";
 
 app.message(/^(.*)/, async ({ context, message: payload }) => {
     console.log({ payload });
-    const isBot = payload.subtype === "bot_message";
 
-    if (!isBot && payload.blocks) {
-        console.log("not fondesk message");
+    if (
+        payload.subtype !== "bot_message" ||
+        !payload.blocks ||
+        !payload.blocks.length
+    ) {
+        console.log("🥺 not fondesk message");
         return;
     }
 
@@ -52,7 +55,7 @@ app.message(/^(.*)/, async ({ context, message: payload }) => {
         throw new Error(err);
     });
     if (res.ok) {
-        console.log(`msg: ok ✅`);
+        console.log("msg: ok ✅");
     } else {
         console.log(`Failed to post a message (error: ${res.error})`);
     }
