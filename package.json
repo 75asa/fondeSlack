@@ -18,7 +18,7 @@
     "prestart": "yarn gcp-build",
     "deploy": "gcloud app deploy app.yml",
     "deploy:cron": "gcloud app --quiet deploy app.yml cron.yml",
-    "logs": "gcloud app logs",
+    "logs": "gcloud app logs read",
     "logs:tail": "gcloud app logs tail",
     "lint": "eslint './src/**/*.ts'",
     "lint:fix": "eslint --fix './src/**/*.ts'"
