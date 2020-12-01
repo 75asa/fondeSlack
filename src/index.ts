@@ -17,6 +17,8 @@ app.message(/^(.*)/, async ({ context, message: payload }) => {
     const splitedText = payload.text.match(/あて先:(.+)\s/);
     const targetMember = splitedText.length > 1 ? splitedText[1] : "";
 
+    console.log({ splitedText, targetMember });
+
     // firestoreのデータを取得
     const hitUser = await getFirestore(targetMember);
 
