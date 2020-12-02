@@ -1,7 +1,7 @@
 import firestore from "./firestore";
 import { userDocument } from "./types/userDocument";
 
-export default async (payloadText: string): Promise<userDocument[]> => {
+export default async (payloadText: string[]): Promise<userDocument[]> => {
     const hitUser = [];
 
     // firestoreのデータを取得

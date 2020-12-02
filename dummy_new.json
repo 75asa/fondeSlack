@@ -1,0 +1,26 @@
+{
+    "channel": "#telephon",
+    "username": "fondesk post tester",
+    "subtype": "bot_message",
+    "blocks": [
+        {
+            "type": "section",
+            "block_id": "ueovu",
+            "text": {
+                "type": "mrkdwn",
+                "text": "*発信者*  ほげ山カンパニー　ほげ山\n*あて先*  名護 または 花城",
+                "verbatim": false
+            }
+        },
+        {
+            "type": "section",
+            "block_id": "yH=",
+            "text": {
+                "type": "plain_text",
+                "text": "採用についてのご連絡。\nご不在でしたら改めますとの事です。\n\n念のため伺ったお電話番号は00-1111-2222です。",
+                "emoji": true
+            }
+        }
+    ],
+    "icon_emoji": ":iphone:"
+}
