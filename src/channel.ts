@@ -1,11 +1,9 @@
 import { App } from "@slack/bolt";
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { channel } from "./types/channelResult";
 import { userInfo } from "./types/userInfo";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import firestore from "./firestore";
 import Profile from "./profile";
-
 class Channel {
     private app: App;
 
@@ -15,15 +13,15 @@ class Channel {
 
     public getChannelInfo = async (): Promise<string[] | null> => {
         return new Promise((resolve, rejects) => {
-            this.app.client.channels
-                .info({
+            this.app.client.conversations
+                .members({
                     channel: process.env.CHANNEL_ID,
                     token: process.env.SLACK_BOT_TOKEN,
                 })
                 .then(result => {
                     if (result.ok) {
-                        const channelResult = result.channel as channel;
-                        resolve(channelResult.members);
+                        const membersResult = result.members as string[];
+                        resolve(membersResult);
                     } else {
                         rejects();
                     }
@@ -55,21 +53,28 @@ class Channel {
     public async putChannelMemberFirestore(): Promise<void> {
         const usersRef = firestore.collection(`users`);
         const members = await this.getChannelInfo();
-        const result = await members.every(async userId => {
-            const userProfile = await this.getProfile(userId);
-            console.log({ userProfile });
-            const isSuccessWrite = await usersRef
-                .doc(userId)
-                .set(userProfile)
-                .then(() => {
-                    return true;
-                })
-                .catch(err => {
-                    console.log({ err });
-                    return false;
+        console.log({ members });
+        const result = await Promise.all(
+            members.map<Promise<boolean>>(async userId => {
+                const userProfile = await this.getProfile(userId);
+                console.log({ userProfile });
+                // eslint-disable-next-line no-shadow
+                return new Promise((resolve, rejects) => {
+                    usersRef
+                        .doc(userId)
+                        .set(userProfile)
+                        .then(() => {
+                            resolve(true);
+                        })
+                        .catch(err => {
+                            console.error({ err });
+                            rejects(err);
+                        });
                 });
-            return isSuccessWrite;
-        });
+            })
+        );
+
+        console.log({ result });
 
         if (result) {
             console.log(`upsert: ok ✅`);

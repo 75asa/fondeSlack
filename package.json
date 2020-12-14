@@ -11,7 +11,7 @@
   "scripts": {
     "start": "node dist/src/index.js",
     "build": "npx tsc && node dist/src/index.js",
-    "dev": "nodemon --watch './src/*.ts' --exec 'ts-node' src/index.ts",
+    "dev:live": "nodemon -L -w src -e ts -x \"tsc && node --require dotenv/config --inspect=localhost:9229 --experimental-modules dist/src/index.js\"",
     "serve": "node --require dotenv/config dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "gcp-build": "npx tsc",
