@@ -19,7 +19,7 @@ export default async (payloadText: string): Promise<userDocument[]> => {
                         return payloadText.includes(keyword);
                     });
                     if (isMentioned) {
-                        hitUser.push({ id: `${content.id}___`, data });
+                        hitUser.push({ id: content.id, data });
                         isMentioned = false;
                         console.log({ data });
                     }

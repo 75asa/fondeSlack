@@ -39,7 +39,7 @@ app.message(/^(.*)/, async ({ context, message: payload }) => {
 
     console.log({ hitUser });
 
-    let message = "<@here>";
+    let message = "<!here>";
     let isHit = false;
 
     if (hitUser.length) {
