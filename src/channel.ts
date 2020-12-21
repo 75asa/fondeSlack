@@ -4,6 +4,7 @@ import { userInfo } from "./types/userInfo";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import firestore from "./firestore";
 import Profile from "./profile";
+
 class Channel {
     private app: App;
 
