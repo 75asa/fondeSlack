@@ -1,8 +1,3 @@
-export interface channelResult {
-    ok?: boolean;
-    channel?: channel;
-}
-
 export interface channel {
     id?: string;
     name?: string;

@@ -23,8 +23,10 @@ app.message(/^(.*)/, async ({ context, message: payload }) => {
         const section = block as SectionBlock;
         if (!section.text.type || section.text.type !== "mrkdwn") return acc;
         const sectionText = section.text.text;
-        const sectionTextConponent = sectionText.split(/\*あて先\*+\s/);
-        if (sectionTextConponent.length < 2) return acc;
+        // const sectionTextConponent = sectionText.split(/\*あて先\*+\s/);
+        const sectionTextConponent = sectionText.match(/\*あて先\*(.+)$/);
+        if (!sectionTextConponent) return acc;
+        console.log({ sectionTextConponent });
         const result = sectionTextConponent[1].split(/\s/g).filter(Boolean);
         console.log({ result });
         return [...acc, ...result];
@@ -33,7 +35,7 @@ app.message(/^(.*)/, async ({ context, message: payload }) => {
     console.log({ targetMembers });
 
     // firestoreのデータを取得
-    const hitUser = await getFirestore(targetMembers);
+    const hitUser = await getFirestore(targetMembers.join());
 
     console.log({ hitUser });
 

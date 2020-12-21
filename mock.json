@@ -1,35 +1,26 @@
 {
-  "channel": "#fondesk",
+  "channel": "#telephon",
   "username": "fondesk post tester",
-  "attachments": [
-    {
-      "fallback": "ホゲホゲカンパニー　サトウ さんからの電話: ザキヤマ様、クロイシ様宛に入電。\n御社で利用されているフガフガの更新についてのご連絡とのことです。\nメールも送付されるとのことでしたので、ご確認を宜しくお願い致します。\n\n折り返し: 不要\n折り返し先: -",
-      "id": 3,
-      "ts": 1183995274,
-      "color": "37a64f",
-      "fields": [
-        {
-          "title": "発信者",
-          "value": "ホゲホゲカンパニー　サトウ",
-          "short": false
-        },
-        {
-          "title": "折り返し先の電話番号",
-          "value": "-",
-          "short": true
-        },
-        {
-          "title": "折り返しの連絡",
-          "value": "不要",
-          "short": true
-        },
-        {
-          "title": "内容",
-          "value": "ヤマ様、クロイシ様宛に入電。\n御社で利用されているフガフガの更新についてのご連絡とのことです。\nメールも送付されるとのことでしたので、ご確認を宜しくお願い致します。",
-          "short": false
-        }
-      ]
-    }
+  "subtype": "bot_message",
+  "blocks": [
+      {
+          "type": "section",
+          "block_id": "ueovu",
+          "text": {
+              "type": "mrkdwn",
+              "text": "*発信者*  ほげ山カンパニー　ほげ山\n*あて先*  公式の方 非公式の方、採用",
+              "verbatim": false
+          }
+      },
+      {
+          "type": "section",
+          "block_id": "yH=",
+          "text": {
+              "type": "plain_text",
+              "text": "採用についてのご連絡。\nご不在でしたら改めますとの事です。\n\n念のため伺ったお電話番号は00-1111-2222です。",
+              "emoji": true
+          }
+      }
   ],
   "icon_emoji": ":iphone:"
 }
